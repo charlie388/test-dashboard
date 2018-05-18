@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html>
+<body>
+<canvas id="myCanvas" width="720" height="720" style="border:1px solid #3d3d3d;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+function myRotation(angle) {
+    ctx.drawImage(img, 0, 0);
+    ctx.translate(372,330);
+    ctx.rotate((180-112+angle) * (3.14159/180));
+    ctx.fillStyle="yellow";
+    ctx.fillRect( 0, 0, 10, 300);
+    ctx.setTransform( 1, 0, 0, 1, 0, 0);
+}
+
+var ctx = document.getElementById("myCanvas").getContext("2d");
+var img = new Image();
+var angle = 0;
+var direction = 0;
+/*
+img.onload = function () {
+    myRotation(112); //perpendicular
+}
+*/
+img.addEventListener("load", function() {
+    setInterval(function(){
+        myRotation(angle);
+
+        if( direction == 0) {
+            angle += 0.25;
+        } else {
+            angle -= 0.25;
+        }
+
+        if( angle > 228.1 ) {
+            angle = 228.0;
+            direction = 1;
+        }else if( angle < -0.1 ) {
+            angle = 0.0;
+            direction = 0;
+        }
+    },10);
+
+}, false);
+
+img.src = 'dashboard-1.jpg';
+
+</script>
+</body>
+</html>
